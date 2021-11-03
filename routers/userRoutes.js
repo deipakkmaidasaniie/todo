@@ -1,0 +1,13 @@
+const express = require("express");
+const app = express.Router();
+const authenticateToken = require("../middlewares/authenticate");
+const userController = require("../controllers/user");
+const todoController=require("../controllers/todo");
+app.post("/signup", userController.signup);
+app.post("/login",  userController.login);
+app.post("/todos", authenticateToken,todoController.addTodo);
+app.get("/todos", authenticateToken,todoController.listTodos);
+app.get("/todos/:id",authenticateToken,todoController.findTodo);
+app.delete("/todos/:id",authenticateToken,todoController.deleteTodo);
+app.patch("/todos/:id",authenticateToken,todoController.updateTodo);
+module.exports = app;
